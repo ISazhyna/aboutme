@@ -1,20 +1,49 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import logo from './logo.svg';
+import Projects from './Projects';
+import About from './About';
+import Home from './Home';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <div className="navigation">
-        <img src={logo} className="logo" alt="Logo Image" />
-        <div className="navigation-sub">
-          <li href="" className="item">Projects</li>
-          <li href="" className="item">About</li>
-        </div>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/projects">Projects</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+          </ul>
+        </nav>
+        <Switch>
+          <Route path="/projects">
+            <Projects />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
       </div>
-    </div>
+    </Router>
   );
 }
+
+
 
 export default App;
