@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import Converter from "./component/Сonverter";
+import Weather from "./weather/Weather";
 
 class Useful extends Component {
     render() { 
-        return <Converter/>;
+        return (
+        <div>
+        <Converter/>
+        <Weather />
+      </div>
+      );
     }
 }
  
