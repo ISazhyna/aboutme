@@ -10,6 +10,7 @@ import logo from './logo.svg';
 import Projects from './Projects';
 import About from './About';
 import Home from './Home';
+import Useful from './Useful';
 import './App.css';
 
 function App() {
@@ -27,6 +28,9 @@ function App() {
             <li>
               <Link to="/about">About</Link>
             </li>
+            <li>
+              <Link to="/useful">Useful</Link>
+            </li>
           </ul>
         </nav>
         <Switch>
@@ -35,6 +39,9 @@ function App() {
           </Route>
           <Route path="/about">
             <About />
+          </Route>
+          <Route path="/useful">
+            <Useful />
           </Route>
           <Route path="/">
             <Home />
@@ -48,3 +55,4 @@ function App() {
 
 
 export default App;
+
