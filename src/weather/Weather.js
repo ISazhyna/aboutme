@@ -1,24 +1,27 @@
 import React, { Component } from "react";
 import '../weather/weather.css';
+import ChangeUnits from "./ChangeUnits";
 
 class Weather extends Component {
     constructor(props) {
         super(props);
         this.state = {
             fromJson : [],
-            city: 'Kiev',
+            city: '',
             country: 'ua',
+            units: 'metric',
             temp: ''
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleChangeUnits = this.handleChangeUnits.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);  
       }
     componentDidMount() {
-    this.fetchCounties();
+    this.fetchCountries();
     //this.fetchDegrees();
     }
 
-    fetchCounties = () => {
+    fetchCountries = () => {
         fetch('./citylist.json', {
             method: 'GET',
             headers: {
@@ -36,16 +39,16 @@ class Weather extends Component {
     }
 
     fetchDegrees = () => {
+        console.log("old  "+this.state.units);
        // fetch('http://api.openweathermap.org/data/2.5/weather?q={this.state.city},{this.state.country}&APPID=3e89317c175cab4489fe0bd735290e43', {
         const proxyurl = 'https://cors-anywhere.herokuapp.com/';  //CORS problem
-        let url = 'http://api.openweathermap.org/data/2.5/weather?q='+this.state.city+'&APPID=3e89317c175cab4489fe0bd735290e43'; // site that doesn’t send Access-Control-*
+        let url = 'http://api.openweathermap.org/data/2.5/weather?q='+this.state.city+'&units='+this.state.units+'&APPID=3e89317c175cab4489fe0bd735290e43'; // site that doesn’t send Access-Control-*
         fetch(proxyurl + url)
         .then(response => {
             return response.json()
         })
         .then(data => {
         //work with json here
-          console.log(data.main.temp)
           this.setState({ temp: data.main.temp })
         })
         .catch(err => {
@@ -56,6 +59,12 @@ class Weather extends Component {
     
     handleChange(event) {
         this.setState({city: event.target.value});
+    }
+
+    handleChangeUnits(event) {
+        console.log("new  "+event.target.value);
+        this.setState({units: event.target.value});
+        this.fetchDegrees();
     }
     
     handleSubmit(event) {
@@ -68,6 +77,7 @@ class Weather extends Component {
        
         return (
             <div>
+                <ChangeUnits units={this.state.units} onChange={this.handleChangeUnits} />
                 <form onSubmit={this.handleSubmit}>
                     <label>
                     Choose your city:
@@ -80,6 +90,7 @@ class Weather extends Component {
                     <input type="submit" value="Submit" />
                 </form>
                 <div>{this.state.temp}</div>
+                <div></div>
             </div>
         );
     }
