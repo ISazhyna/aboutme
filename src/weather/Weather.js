@@ -38,8 +38,7 @@ class Weather extends Component {
         .catch((err) => console.log(err))
     }
 
-    fetchDegrees = () => {
-        console.log("old  "+this.state.units);
+    fetchDegrees = () => {  
        // fetch('http://api.openweathermap.org/data/2.5/weather?q={this.state.city},{this.state.country}&APPID=3e89317c175cab4489fe0bd735290e43', {
         const proxyurl = 'https://cors-anywhere.herokuapp.com/';  //CORS problem
         let url = 'http://api.openweathermap.org/data/2.5/weather?q='+this.state.city+'&units='+this.state.units+'&APPID=3e89317c175cab4489fe0bd735290e43'; // site that doesn’t send Access-Control-*
@@ -62,13 +61,16 @@ class Weather extends Component {
     }
 
     handleChangeUnits(event) {
+        console.log("old "+this.state.units);
         console.log("new  "+event.target.value);
-        this.setState({units: event.target.value});
-        this.fetchDegrees();
+        this.setState({units: event.target.value},
+            () => {                        
+                this.fetchDegrees();
+          });
     }
     
     handleSubmit(event) {
-        alert('Your favorite flavor is: ' + this.state.city);
+        alert('Your favorite city is: ' + this.state.city);
         this.fetchDegrees();
         event.preventDefault();
     }
