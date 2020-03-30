@@ -68,7 +68,7 @@ class Weather extends Component {
     }
     
     handleSubmit(event) {
-        alert('Your favorite flavor is: ' + this.state.city);
+        alert('Your favorite city is: ' + this.state.city);
         this.fetchDegrees();
         event.preventDefault();
     }
